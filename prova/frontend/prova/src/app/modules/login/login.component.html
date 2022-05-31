@@ -1,1 +1,48 @@
-<p>login works!</p>
+<body>
+  <header>
+    <h1>Teste os seus conhecimentos com o PROVA!</h1>
+  </header>
+
+  <main>
+    <form class="column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Bora fazer uma PROVA?</h2>
+
+      <label for="email">E-mail</label>
+      <input id="email" required type="email" formControlName="email" />
+
+      <div
+        *ngIf="
+          loginForm.controls['email'].invalid &&
+          (loginForm.controls['email'].dirty ||
+            loginForm.controls['email'].touched)
+        "
+        class="alert"
+      >
+        <div *ngIf="loginForm.controls['email'].errors?.['required']">
+          E-mail obrigatório
+        </div>
+        <div *ngIf="loginForm.controls['email'].errors?.['email']">
+          E-mail inválido
+        </div>
+      </div>
+
+      <label for="password">Senha</label>
+      <input id="" password type="password" formControlName="password" />
+
+      <div
+        *ngIf="
+          loginForm.controls['password'].invalid &&
+          (loginForm.controls['password'].dirty ||
+            loginForm.controls['password'].touched)
+        "
+        class="alert"
+      >
+        <div *ngIf="loginForm.controls['password'].errors?.['minlength']">
+          A senha precisa ter, pelo menos, 8 caracteres
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!loginForm.valid">ENTRAR</button>
+    </form>
+  </main>
+</body>
