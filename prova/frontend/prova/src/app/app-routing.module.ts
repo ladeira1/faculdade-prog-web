@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { RouteGuard } from './core/guards/route.guard';
 import { AlunoComponent } from './modules/aluno/aluno.component';
 import { LoginComponent } from './modules/login/login.component';
-
 import { ProvaComponent } from './modules/prova/prova.component';
 
 const routes: Routes = [

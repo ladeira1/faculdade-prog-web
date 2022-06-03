@@ -7,27 +7,31 @@
     <form class="column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <h2>Bora fazer uma PROVA?</h2>
 
-      <label for="email">E-mail</label>
-      <input id="email" required type="email" formControlName="email" />
+      <div class="error" *ngIf="shouldShowError">
+        Erro ao realizar login
+      </div>
+
+      <label for="user">Nome</label>
+      <input id="user" placeholder="Nome" required type="text" formControlName="user" />
 
       <div
         *ngIf="
-          loginForm.controls['email'].invalid &&
-          (loginForm.controls['email'].dirty ||
-            loginForm.controls['email'].touched)
+          loginForm.controls['user'].invalid &&
+          (loginForm.controls['user'].dirty ||
+            loginForm.controls['user'].touched)
         "
         class="alert"
       >
-        <div *ngIf="loginForm.controls['email'].errors?.['required']">
-          E-mail obrigatório
+        <div *ngIf="loginForm.controls['user'].errors?.['required']">
+         Nome obrigatório
         </div>
-        <div *ngIf="loginForm.controls['email'].errors?.['email']">
-          E-mail inválido
+        <div *ngIf="loginForm.controls['user'].errors?.['user']">
+         Nome inválido
         </div>
       </div>
 
       <label for="password">Senha</label>
-      <input id="" password type="password" formControlName="password" />
+      <input id="password" placeholder="********" type="password" formControlName="password" />
 
       <div
         *ngIf="

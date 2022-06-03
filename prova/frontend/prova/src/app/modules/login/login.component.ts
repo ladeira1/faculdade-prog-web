@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+  LoginService,
+  UserCredentials,
+} from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +13,34 @@ import {
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    user: new FormControl('', [Validators.required]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8),
+      Validators.minLength(5),
     ]),
   });
 
-  constructor() {}
+  shouldShowError = false;
+
+  constructor(private loginService: LoginService, private router: Router) {}
 
   onSubmit() {
-    console.log(this.loginForm);
-    console.log(this.loginForm.value);
+    const { user, password } = this.loginForm.value;
+
+    this.loginService.login(user, password).subscribe({
+      next: (userCredentials: UserCredentials) => {
+        localStorage.setItem(
+          'prova:user.credentials',
+          userCredentials.credentials,
+        );
+        this.shouldShowError = false;
+        this.router.navigateByUrl('/prova');
+      },
+      error: err => {
+        this.shouldShowError = true;
+        console.error(err);
+      },
+    });
   }
 
   get email() {

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class RouteGuard implements CanActivate {
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return false;
+  constructor(public router: Router) {}
+
+  canActivate() {
+    const storageCredentials = localStorage.getItem('prova:user.credentials');
+    if (!storageCredentials) this.router.navigateByUrl('/');
+
+    return storageCredentials !== null && storageCredentials !== undefined;
   }
 }

@@ -1,5 +1,15 @@
 import { HttpResponse } from './http';
 
+export const BAD_REQUEST = (error: Error): HttpResponse => ({
+  statusCode: 400,
+  body: error,
+});
+
+export const UNAUTHORIZED = (error: string = null): HttpResponse => ({
+  statusCode: 401,
+  body: error,
+});
+
 export const NOT_FOUND = (id: string = null): HttpResponse => ({
   statusCode: 404,
   body: `NOT FOUND - ${
@@ -7,11 +17,6 @@ export const NOT_FOUND = (id: string = null): HttpResponse => ({
       ? `Registro com identificador ${id} não encontrado`
       : 'Registros não encontrados'
   }`,
-});
-
-export const BAD_REQUEST = (error: Error): HttpResponse => ({
-  statusCode: 400,
-  body: error,
 });
 
 export const INTERNAL_SERVER_ERROR = (error: Error): HttpResponse => ({

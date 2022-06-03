@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { MongoHelper } from './infra/database/mongo-helper';
 import { provaRouter } from './presentation/route/prova.route';
+import { authRouter } from './presentation/route/auth.route';
 import { DATABASE_URL, PORT } from '../main/config/env';
 
 const app = express();
@@ -19,6 +20,7 @@ MongoHelper.connect(DATABASE_URL)
     });
 
     app.use('/api/prova', provaRouter);
+    app.use('/api/auth', authRouter);
 
     app.listen(PORT, () => {
       console.log('listening at localhost:3333');
